@@ -16,7 +16,8 @@ __email__ = "alumnos@inove.com.ar"
 __version__ = "1.1"
 
 import numpy as np
-
+import random
+import math
 
 def ej1():
     print('Comenzamos a divertirnos!')
@@ -42,6 +43,14 @@ def ej1():
     Realizar este proceso iterativo hasta cumplir el objetivo
     '''
 
+    black_jack = [random.randint(1, 10) for x in range(3)]
+    suma = np.sum(black_jack)
+    while suma > 21:
+        print("perdiste, intentando otra vez...")
+        black_jack = [random.randint(1, 10) for x in range(3)]
+        suma = np.sum(black_jack)
+    print("ganaste! tu puntaje es:", suma)
+
 
 def ej2():
     print('Comenzamos a ponernos serios!')
@@ -60,6 +69,9 @@ def ej2():
     nombres = ['Tamara', 'Marcelo', 'Martin', 'Juan', 'Alberto', 'Exequiel',
                'Alejandro', 'Leonel', 'Antonio', 'Omar', 'Antonia', 'Amalia',
                'Daniela', 'Sofia', 'Celeste', 'Ramon', 'Jorgelina', 'Anabela']
+
+    nombres_filtrados = [x for x in nombres if x[0] in padron]
+    print(nombres_filtrados)
 
     # Se espera obtener:
     # ['Tamara', 'Juan', 'Alberto'......]
@@ -80,7 +92,8 @@ def ej3():
     # NO utilizar comprensión de listas, solo utilice la
     # funcion de numpy "np.sin"
 
-    # y_nump =
+    y_nump = np.sin(x)
+    print(y_nump)
 
     # Conjunto de valores "X" en una lista
     x = list(np.arange(0, 2*np.pi, 0.1))
@@ -89,7 +102,8 @@ def ej3():
     # "y_list" que tenga todos los valores obtenidos como resultado
     # de someter cada valor de "X" a la función math.sin
 
-    # y_list =
+    y_list = [math.sin(x) for x in x]
+    print(y_list)
 
     # Este es un ejemplo práctico de cuando es útil usar numpy,
     # basicamente siempre que deseen utilizar una función matemática
@@ -124,6 +138,8 @@ def ej4():
     # de diccionarios que tiene un parametro configurable respecto
     # que sucede sino encuentra la "key" en el diccionario.
 
+    lista_compra_productos = [producto.get(x) if x in producto else "NaN" for x in lista_compra_id]
+    print(lista_compra_productos)
 
 def ej5():
     print("Ahora sí! buena suerte :)")
@@ -148,6 +164,51 @@ def ej5():
     más cercanos a 21 sin pasarse!
     '''
 
+    black_jack = [random.randint(1, 10) for x in range(2)]
+    black_jack_2 = [random.randint(1, 10) for x in range(2)]
+    suma = np.sum(black_jack)
+    suma_2 = np.sum(black_jack)
+
+    while suma < 21:
+        print("jugador 1")
+        print("tus cartas:", black_jack)
+        print("la suma entre ellas:", np.sum(black_jack))
+        respuesta = str(input("quiere sacar otra carta? Y/N\n"))
+        if respuesta == "n":
+            break
+        elif respuesta == "y":
+            black_jack.append(random.randint(1,10))
+            print(black_jack)
+        suma = np.sum(black_jack)
+
+    while suma_2 < 21:
+        print("jugador 2")
+        print("tus cartas:", black_jack_2)
+        print("la suma entre ellas:", np.sum(black_jack_2))
+        respuesta = str(input("quiere sacar otra carta? Y/N\n"))
+        if respuesta == "n":
+            break
+        elif respuesta == "y":
+            black_jack_2.append(random.randint(1,10))
+            print(black_jack_2)
+        suma_2 = np.sum(black_jack_2)
+
+    if suma < 21:
+        if suma_2 < 21:
+            print("ganó el jugador 2") 
+            if suma > suma_2:
+                print("ganó el jugador 1")
+            else:
+                print("ganó el jugador 2") 
+        else: 
+           print("ganó el jugador 1")
+    elif suma_2 < 21:
+        print("ganó el jugador 2") 
+    else:
+        print("todos perdieron") 
+
+
+
 
 if __name__ == '__main__':
     print("Ejercicios de práctica")
@@ -155,4 +216,4 @@ if __name__ == '__main__':
     # ej2()
     # ej3()
     # ej4()
-    # ej5()
+    ej5()
